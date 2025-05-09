@@ -2,21 +2,72 @@ import { type TMenuConfig } from '@/components/menu';
 
 export const MENU_SIDEBAR: TMenuConfig = [
   {
-    title: 'Dashboards',
+    title: 'Dashboard',
     icon: 'element-11',
+    path: '/'
+  },
+  {
+    title: 'Core',
+    icon: 'element-7',
     children: [
       {
-        title: 'Light Sidebar',
-        path: '/'
+        title: 'Repositories',
+        icon: 'profile-2user',
+        path: '/repositories'
       },
       {
-        title: 'Dark Sidebar',
-        path: '/dark-sidebar'
+        title: 'Change Analysis',
+        icon: 'activity',
+        path: '/change-analysis'
       }
     ]
   },
   {
-    heading: 'User'
+    title: 'Intelligence',
+    icon: 'artificial-intelligence',
+    children: [
+      {
+        title: 'Incident Forecasting',
+        icon: 'warning',
+        path: '/incident-forecasting'
+      },
+      {
+        title: 'Risk Assessment',
+        icon: 'shield',
+        path: '/risk-assessment'
+      },
+      {
+        title: 'Metrics',
+        icon: 'chart',
+        path: '/metrics'
+      }
+    ]
+  },
+  {
+    title: 'Platform',
+    icon: 'setting-2',
+    children: [
+      {
+        title: 'Observability',
+        icon: 'activity',
+        path: '/observability'
+      },
+      {
+        title: 'Configuration',
+        icon: 'database',
+        path: '/configuration'
+      },
+      {
+        title: 'Analytics',
+        icon: 'analytics',
+        path: '/analytics'
+      },
+      {
+        title: 'Alerts',
+        icon: 'bell',
+        path: '/alerts'
+      }
+    ]
   },
   {
     title: 'Public Profile',
@@ -489,33 +540,6 @@ export const MENU_SIDEBAR: TMenuConfig = [
         path: '/error/500'
       }
     ]
-  },
-  { heading: 'Apps' },
-  {
-    title: 'User Management',
-    icon: 'users',
-    disabled: true
-  },
-  {
-    title: 'Projects',
-    icon: 'questionnaire-tablet',
-    disabled: true
-  },
-  {
-    title: 'eCommerce',
-    icon: 'handcart',
-    disabled: true
-  },
-  { heading: 'Miscellaneous' },
-  {
-    title: 'Modals',
-    icon: 'some-files',
-    disabled: true
-  },
-  {
-    title: 'Wizards',
-    icon: 'note-2',
-    disabled: true
   }
 ];
 
