@@ -1,2 +1,2 @@
-export * from './default';
-export * from './demo1';
+export { DashboardPage } from './sidebar-light';
+export { DashboardDarkPage } from './sidebar-dark';
