@@ -1,11 +1,11 @@
 import React, { forwardRef, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { useDemo1Layout } from '../';
+import { useDefaultLayout } from '../';
 import { toAbsoluteUrl } from '@/utils';
 import { SidebarToggle } from './';
 
 const SidebarHeader = forwardRef<HTMLDivElement, any>((props, ref) => {
-  const { layout } = useDemo1Layout();
+  const { layout } = useDefaultLayout();
 
   const lightLogo = () => (
     <Fragment>

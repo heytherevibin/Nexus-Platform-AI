@@ -7,10 +7,10 @@ import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { useMenus } from '@/providers';
 import { ILayoutConfig, useLayout } from '@/providers';
 import { deepMerge } from '@/utils';
-import { demo1LayoutConfig } from './';
+import { defaultLayoutConfig } from './';
 
 // Interface defining the structure for layout provider properties
-export interface IDemo1LayoutProviderProps {
+export interface IDefaultLayoutProviderProps {
   layout: ILayoutConfig; // Current layout configuration
   megaMenuEnabled: boolean; // Determines if the mega menu is enabled
   headerSticky: boolean; // Tracks if the header should be sticky based on scroll
@@ -26,8 +26,8 @@ export interface IDemo1LayoutProviderProps {
 }
 
 // Initial layout properties with default values
-const initalLayoutProps: IDemo1LayoutProviderProps = {
-  layout: demo1LayoutConfig, // Default layout configuration
+const initalLayoutProps: IDefaultLayoutProviderProps = {
+  layout: defaultLayoutConfig, // Default layout configuration
   megaMenuEnabled: false, // Mega menu disabled by default
   headerSticky: false, // Header is not sticky by default
   mobileSidebarOpen: false, // Mobile sidebar is closed by default
@@ -54,13 +54,13 @@ const initalLayoutProps: IDemo1LayoutProviderProps = {
 };
 
 // Creating context for the layout provider with initial properties
-const Demo1LayoutContext = createContext<IDemo1LayoutProviderProps>(initalLayoutProps);
+const DefaultLayoutContext = createContext<IDefaultLayoutProviderProps>(initalLayoutProps);
 
 // Custom hook to access the layout context
-const useDemo1Layout = () => useContext(Demo1LayoutContext);
+const useDefaultLayout = () => useContext(DefaultLayoutContext);
 
 // Layout provider component that wraps the application
-const Demo1LayoutProvider = ({ children }: PropsWithChildren) => {
+const DefaultLayoutProvider = ({ children }: PropsWithChildren) => {
   const { pathname } = useLocation(); // Gets the current path
   const { setMenuConfig } = useMenus(); // Accesses menu configuration methods
   const secondaryMenu = useMenuChildren(pathname, MENU_SIDEBAR, 0); // Retrieves the secondary menu
@@ -73,7 +73,7 @@ const Demo1LayoutProvider = ({ children }: PropsWithChildren) => {
 
   // Merges the default layout with the current one
   const getLayoutConfig = () => {
-    return deepMerge(demo1LayoutConfig, getLayout(demo1LayoutConfig.name));
+    return deepMerge(defaultLayoutConfig, getLayout(defaultLayoutConfig.name));
   };
 
   const [layout, setLayout] = useState(getLayoutConfig); // State for layout configuration
@@ -105,7 +105,7 @@ const Demo1LayoutProvider = ({ children }: PropsWithChildren) => {
       }
     };
 
-    updateLayout(demo1LayoutConfig.name, updatedLayout); // Updates the layout with the collapsed state
+    updateLayout(defaultLayoutConfig.name, updatedLayout); // Updates the layout with the collapsed state
     setLayout(getLayoutConfig()); // Refreshes the layout configuration
   };
 
@@ -124,7 +124,7 @@ const Demo1LayoutProvider = ({ children }: PropsWithChildren) => {
 
   return (
     // Provides the layout configuration and controls via context to the application
-    <Demo1LayoutContext.Provider
+    <DefaultLayoutContext.Provider
       value={{
         layout,
         headerSticky,
@@ -141,9 +141,9 @@ const Demo1LayoutProvider = ({ children }: PropsWithChildren) => {
       }}
     >
       {children}
-    </Demo1LayoutContext.Provider>
+    </DefaultLayoutContext.Provider>
   );
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export { Demo1LayoutProvider, useDemo1Layout };
+export { DefaultLayoutProvider, useDefaultLayout };

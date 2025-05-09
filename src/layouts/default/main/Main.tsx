@@ -2,11 +2,11 @@ import { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation } from 'react-router';
 import { useMenuCurrentItem } from '@/components/menu';
-import { Footer, Header, Sidebar, useDemo1Layout } from '../';
+import { Footer, Header, Sidebar, useDefaultLayout } from '../';
 import { useMenus } from '@/providers';
 
 const Main = () => {
-  const { layout } = useDemo1Layout();
+  const { layout } = useDefaultLayout();
   const { pathname } = useLocation();
   const { getMenuConfig } = useMenus();
   const menuConfig = getMenuConfig('primary');

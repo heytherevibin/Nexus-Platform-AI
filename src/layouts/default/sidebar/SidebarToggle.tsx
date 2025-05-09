@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { KeenIcon } from '@/components';
-import { useDemo1Layout } from '../Demo1LayoutProvider';
+import { useDefaultLayout } from '../DefaultLayoutProvider';
 import { useMatchPath } from '@/hooks';
 
 const SidebarToggle = () => {
-  const { layout, setSidebarCollapse } = useDemo1Layout();
+  const { layout, setSidebarCollapse } = useDefaultLayout();
   const { match } = useMatchPath('/dark-sidebar');
 
   const handleClick = () => {

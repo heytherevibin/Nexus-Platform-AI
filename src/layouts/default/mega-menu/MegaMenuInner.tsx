@@ -9,7 +9,7 @@ import {
   MegaMenuSubAuth,
   MegaMenuSubHelp
 } from '@/partials/menu/mega-menu';
-import { useDemo1Layout } from '../Demo1LayoutProvider';
+import { useDefaultLayout } from '../DefaultLayoutProvider';
 import { MENU_MEGA } from '@/config';
 import { useLanguage } from '@/i18n';
 
@@ -17,7 +17,7 @@ const MegaMenuInner = () => {
   const desktopMode = useResponsive('up', 'lg');
   const { isRTL } = useLanguage();
   const [disabled, setDisabled] = useState(true); // Initially set disabled to true
-  const { layout, sidebarMouseLeave, setMegaMenuEnabled } = useDemo1Layout();
+  const { layout, sidebarMouseLeave, setMegaMenuEnabled } = useDefaultLayout();
 
   // Change disabled state to false after a certain time (e.g., 5 seconds)
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { type ILayoutConfig } from '@/providers';
 
 // Defining the demo1 layout configuration using the ILayoutConfig type
-const demo1LayoutConfig: ILayoutConfig = {
+const defaultLayoutConfig: ILayoutConfig = {
   // Setting the layout name to 'demo1-layout'
   name: 'demo1-layout',
 
@@ -21,4 +21,4 @@ const demo1LayoutConfig: ILayoutConfig = {
   }
 };
 
-export { demo1LayoutConfig };
+export { defaultLayoutConfig };

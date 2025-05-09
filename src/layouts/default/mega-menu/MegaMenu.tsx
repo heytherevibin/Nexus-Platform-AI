@@ -2,7 +2,7 @@
 import { useResponsive } from '@/hooks';
 import { useEffect } from 'react';
 import { usePathname } from '@/providers';
-import { useDemo1Layout } from '@/layouts/demo1';
+import { useDefaultLayout } from '@/layouts/default';
 import { MegaMenuInner } from '.';
 import {
   Sheet,
@@ -15,7 +15,7 @@ import {
 const MegaMenu = () => {
   const desktopMode = useResponsive('up', 'lg');
   const { pathname, prevPathname } = usePathname();
-  const { mobileMegaMenuOpen, setMobileMegaMenuOpen } = useDemo1Layout();
+  const { mobileMegaMenuOpen, setMobileMegaMenuOpen } = useDefaultLayout();
 
   const handleDrawerClose = () => {
     setMobileMegaMenuOpen(false);

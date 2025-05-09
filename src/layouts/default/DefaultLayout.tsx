@@ -1,7 +1,7 @@
 import useBodyClasses from '@/hooks/useBodyClasses';
-import { Demo1LayoutProvider, Main } from './';
+import { DefaultLayoutProvider, Main } from './';
 
-const Demo1Layout = () => {
+const DefaultLayout = () => {
   // Using the useBodyClasses hook to set background styles for light and dark modes
   useBodyClasses(`
     [--tw-page-bg:#fefefe]
@@ -14,10 +14,10 @@ const Demo1Layout = () => {
   `);
 
   return (
-    <Demo1LayoutProvider>
+    <DefaultLayoutProvider>
       <Main />
-    </Demo1LayoutProvider>
+    </DefaultLayoutProvider>
   );
 };
 
-export { Demo1Layout };
+export { DefaultLayout };

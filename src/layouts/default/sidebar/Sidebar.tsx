@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react';
 import { useResponsive, useViewport } from '@/hooks';
-import { useDemo1Layout } from '../';
+import { useDefaultLayout } from '../';
 import { SidebarContent, SidebarHeader } from './';
 import clsx from 'clsx';
 import { getHeight } from '@/utils';
@@ -33,8 +33,8 @@ export const Sidebar = () => {
   }, [viewportHeight]);
 
   const desktopMode = useResponsive('up', 'lg');
-  const { mobileSidebarOpen, setSidebarMouseLeave, setMobileSidebarOpen } = useDemo1Layout();
-  const { layout } = useDemo1Layout();
+  const { mobileSidebarOpen, setSidebarMouseLeave, setMobileSidebarOpen } = useDefaultLayout();
+  const { layout } = useDefaultLayout();
   const themeClass: string =
     layout.options.sidebar.theme === 'dark' || pathname === '/dark-sidebar'
       ? 'dark [&.dark]:bg-coal-600'

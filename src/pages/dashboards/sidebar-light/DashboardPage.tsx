@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Container } from '@/components/container';
-import { Toolbar, ToolbarActions, ToolbarHeading } from '@/layouts/demo1/toolbar';
+import { Toolbar, ToolbarActions, ToolbarHeading } from '@/layouts/default/toolbar';
 import { SidebarLightContent } from './';
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';

@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { Container } from '@/components/container';
 import { MegaMenu } from '../mega-menu';
 import { HeaderLogo, HeaderTopbar } from './';
-import { Breadcrumbs, useDemo1Layout } from '../';
+import { Breadcrumbs, useDefaultLayout } from '../';
 import { useLocation } from 'react-router';
 
 const Header = () => {
-  const { headerSticky } = useDemo1Layout();
+  const { headerSticky } = useDefaultLayout();
   const { pathname } = useLocation();
 
   useEffect(() => {

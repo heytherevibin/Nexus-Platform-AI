@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { KeenIcon } from '@/components/keenicons';
 import { toAbsoluteUrl } from '@/utils';
 
-import { useDemo1Layout } from '../';
+import { useDefaultLayout } from '../';
 
 const HeaderLogo = () => {
-  const { setMobileSidebarOpen, setMobileMegaMenuOpen, megaMenuEnabled } = useDemo1Layout();
+  const { setMobileSidebarOpen, setMobileMegaMenuOpen, megaMenuEnabled } = useDefaultLayout();
 
   const handleSidebarOpen = () => {
     setMobileSidebarOpen(true);

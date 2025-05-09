@@ -75,7 +75,7 @@ import {
 
 import { AuthPage } from '@/auth';
 import { RequireAuth } from '@/auth/RequireAuth';
-import { Demo1Layout } from '@/layouts/demo1';
+import { DefaultLayout } from '@/layouts/default';
 import { ErrorsRouting } from '@/errors';
 import {
   AuthenticationWelcomeMessagePage,
@@ -87,7 +87,7 @@ const AppRoutingSetup = (): ReactElement => {
   return (
     <Routes>
       <Route element={<RequireAuth />}>
-        <Route element={<Demo1Layout />}>
+        <Route element={<DefaultLayout />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/dark-sidebar" element={<DashboardDarkPage />} />
           <Route path="/public-profile/profiles/default" element={<ProfileDefaultPage />} />
