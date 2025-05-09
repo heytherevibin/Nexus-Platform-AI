@@ -8,9 +8,9 @@ import {
   ResetPasswordEnterEmail,
   Signup,
   TwoFactorAuth
-} from './pages/jwt';
+} from './pages/supabase';
 import { DefaultAuthLayout } from '@/layouts/auth';
-import { CheckEmail } from '@/auth/pages/jwt';
+import { CheckEmail } from '@/auth/pages/supabase';
 
 const AuthPage = () => (
   <Routes>
