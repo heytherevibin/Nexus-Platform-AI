@@ -1,0 +1,142 @@
+%%{init: {
+    'theme': 'default',
+    'themeVariables': {
+      'fontFamily': 'arial',
+      'fontSize': '16px'
+    }
+ }}%%
+
+flowchart TD
+    %% Style classes with improved text visibility
+    classDef mvp fill:#d4f1f9,stroke:#0277bd,stroke-width:2px,color:#000000,font-weight:bold
+    classDef future fill:#f9f9f9,stroke:#9e9e9e,stroke-width:1px,stroke-dasharray: 5 5,color:#000000
+    classDef external fill:#e8f5e9,stroke:#388e3c,stroke-width:1px,color:#000000,font-weight:bold
+
+    %% Client layer
+    subgraph Client["Client Layer"]
+        UI["Frontend Application\n(Developer Dashboard)"]:::mvp
+        SDK["SDK/API Clients"]:::future
+        CLI["CLI Tools"]:::future
+    end
+
+    %% API Gateway layer
+    subgraph Gateway["API Gateway Layer"]
+        API["API Gateway Service"]:::mvp
+        Auth["Authentication & Authorization"]:::mvp
+        Rate["Rate Limiting"]:::future
+        Proxy["Service Proxying"]:::future
+    end
+
+    %% Core Services
+    subgraph Core["Core Services"]
+        %% Data Collection
+        subgraph DC["Data Collection Service"]
+            GC["GitHub Connector"]:::mvp
+            CP["Code Structure Parser"]:::mvp
+            PP["Basic Pipeline"]:::mvp
+            EH["Event Handlers"]:::mvp
+            GLC["GitLab Connector"]:::future
+            BBC["Bitbucket Connector"]:::future
+            ADC["Azure DevOps Connector"]:::future
+            CIC["CI/CD Connectors"]:::future
+        end
+
+        %% Knowledge Graph
+        subgraph KG["Knowledge Graph Service"]
+            GM["Basic Graph Models"]:::mvp
+            GP["Graph Processors"]:::mvp
+            GQ["Dependency Queries"]:::mvp
+            GA["Impact Analysis"]:::mvp
+            AA["Advanced Algorithms"]:::future
+        end
+
+        %% Analytics
+        subgraph ANALYTICS["Analytics Service"]
+            BM["Basic Metrics"]:::mvp
+            FE["Feature Engineering"]:::future
+            ML["ML Models"]:::future
+            IM["Inference Modules"]:::future
+            AM["Advanced Analytics"]:::future
+        end
+
+        %% Notification
+        subgraph NOTIF["Notification Service"]
+            BC["Basic Channels"]:::future
+            NP["Notification Processors"]:::future
+            NT["Notification Templates"]:::future
+            SM["Subscription Management"]:::future
+        end
+    end
+
+    %% Enterprise Features
+    subgraph Enterprise["Enterprise Features"]
+        TS["Tenant Management Service"]:::future
+        AUD["Audit Service"]:::future
+        CS["Configuration Service"]:::future
+    end
+
+    %% Infrastructure
+    subgraph Infra["Infrastructure Layer"]
+        %% Data Storage
+        subgraph DS["Data Storage"]
+            PG["PostgreSQL"]:::mvp
+            NG["Neo4j"]:::mvp
+            RD["Redis Cache"]:::future
+        end
+
+        %% Messaging
+        subgraph MS["Messaging"]
+            KF["Kafka/Event Bus"]:::mvp
+            RQ["Message Queues"]:::future
+        end
+
+        %% Monitoring
+        subgraph MT["Monitoring"]
+            TM["Basic Telemetry"]:::mvp
+            LG["Logging"]:::mvp
+            MET["Advanced Metrics"]:::future
+            TR["Tracing"]:::future
+        end
+    end
+
+    %% External Systems
+    subgraph External["External Systems"]
+        GH["GitHub"]:::external
+        GL["GitLab"]:::external
+        BB["Bitbucket"]:::external
+        AD["Azure DevOps"]:::external
+        CI["CI/CD Systems"]:::external
+    end
+
+    %% Connections for MVP
+    %% Client to Gateway
+    UI --> API
+
+    %% Gateway to Core Services
+    API --> DC
+    API --> KG
+    API --> BM
+
+    %% Core Services Interactions
+    DC -- "Data Events" --> KF
+    KF --> KG
+    KG --> BM
+
+    %% Core to Infrastructure
+    DC --> PG
+    DC --> NG
+    KG --> NG
+    BM --> PG
+
+    %% External Integrations
+    DC --> GH
+    
+    %% Monitoring
+    TM -.-> DC
+    TM -.-> KG
+    TM -.-> BM
+    
+    %% Legend
+    L1["MVP Components"]:::mvp
+    L2["Future Components"]:::future
+    L3["External Systems"]:::external

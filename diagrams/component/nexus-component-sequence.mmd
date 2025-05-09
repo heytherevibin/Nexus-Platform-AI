@@ -1,0 +1,60 @@
+sequenceDiagram
+    %% Main actors in the system
+    participant User
+    participant Dashboard as Dashboard UI
+    participant API as API Gateway
+    participant Auth
+    participant Git as Git Providers
+    participant DC as Data Collection
+    participant MB as Message Bus
+    participant KGS as Knowledge Graph System
+    participant Cache
+    participant AS as Analytics System
+    participant NS as Notification System
+    
+    %% Use Case 1: User Login and Dashboard Load
+    User->>Dashboard: Access Dashboard
+    Dashboard->>API: Authentication Request
+    API->>Auth: Validate Credentials
+    Auth-->>API: Authentication Result
+    API-->>Dashboard: Authentication Response
+    Dashboard->>API: Request Initial Data
+    API->>Cache: Check for Cached Data
+    Cache-->>API: Return Cached Data (if exists)
+    API->>KGS: Request Analytics Data
+    KGS->>AS: Request Processed Metrics
+    AS-->>KGS: Return Metrics
+    KGS-->>API: Return Knowledge Graph Data
+    API-->>Dashboard: Return Dashboard Data
+    Dashboard-->>User: Display Dashboard
+    
+    %% Use Case 2: Data Collection Flow
+    Note over User,NS: Periodic Data Collection Process
+    Git->>DC: New Code Changes Event
+    DC->>Connectors: Extract Repository Data
+    DC->>Parsers: Parse Code Structure
+    DC->>MB: Publish Data Update Event
+    MB->>KGS: Process New Data
+    KGS->>GraphProcessors: Update Knowledge Graph
+    KGS->>GraphDB: Store Updated Relations
+    KGS->>Cache: Update Cached Views
+    
+    %% Use Case 3: Alert Generation
+    Note over User,NS: Alert Generation Process
+    AS->>PredictiveSystem: Run Predictive Analysis
+    PredictiveSystem->>NS: Generate Alert
+    NS->>AlertEngine: Process Alert Conditions
+    AlertEngine->>SubscriptionMgr: Check User Subscriptions
+    SubscriptionMgr->>DeliverySystem: Route Notifications
+    DeliverySystem-->>User: Deliver Alert Notification
+    
+    %% Use Case 4: User Searching for Information
+    User->>Dashboard: Search Query
+    Dashboard->>API: Search Request
+    API->>KGS: Execute Graph Query
+    KGS->>GraphQueries: Process Search Query
+    GraphQueries->>GraphAlgorithms: Apply Search Algorithms
+    GraphAlgorithms-->>KGS: Return Results
+    KGS-->>API: Return Search Results
+    API-->>Dashboard: Display Search Results
+    Dashboard-->>User: Show Search Results
