@@ -1,7 +1,7 @@
 import { type ILayoutConfig } from '@/providers/LayoutProvider';
 
 // Defining the configuration for the branded authentication layout
-const authLayoutBrandedConfig: ILayoutConfig = {
+const DefaultAuthLayoutConfig: ILayoutConfig = {
   // Setting the layout name to 'auth-branded'
   name: 'auth-branded',
 
@@ -9,4 +9,4 @@ const authLayoutBrandedConfig: ILayoutConfig = {
   options: {}
 };
 
-export { authLayoutBrandedConfig };
+export { DefaultAuthLayoutConfig };

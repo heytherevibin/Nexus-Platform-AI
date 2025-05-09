@@ -2,7 +2,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { Fragment } from 'react';
 import { toAbsoluteUrl } from '@/utils';
 import useBodyClasses from '@/hooks/useBodyClasses';
-import { AuthBrandedLayoutProvider } from './AuthBrandedLayoutProvider';
+import { DefaultAuthLayoutProvider } from './DefaultAuthLayoutProvider';
 
 const Layout = () => {
   // Applying body classes to manage the background color in dark mode
@@ -53,11 +53,11 @@ const Layout = () => {
   );
 };
 
-// AuthBrandedLayout component that wraps the Layout component with AuthBrandedLayoutProvider
-const AuthBrandedLayout = () => (
-  <AuthBrandedLayoutProvider>
+// DefaultAuthLayout component that wraps the Layout component with DefaultAuthLayoutProvider
+const DefaultAuthLayout = () => (
+  <DefaultAuthLayoutProvider>
     <Layout />
-  </AuthBrandedLayoutProvider>
+  </DefaultAuthLayoutProvider>
 );
 
-export { AuthBrandedLayout };
+export { DefaultAuthLayout };

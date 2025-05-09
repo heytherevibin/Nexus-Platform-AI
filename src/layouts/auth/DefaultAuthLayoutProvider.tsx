@@ -1,31 +1,31 @@
 import { createContext, type PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { deepMerge } from '@/utils';
 import { ILayoutConfig, useLayout } from '@/providers';
-import { authLayoutBrandedConfig } from './AuthBrandedLayoutConfig';
+import { DefaultAuthLayoutConfig } from './DefaultAuthLayoutConfig';
 
 // Defining the interface for AuthLayoutProvider's props, which includes a layout of type ILayoutConfig
 interface AuthLayoutProviderProps {
   layout: ILayoutConfig;
 }
 
-// Initial layout properties for the AuthBrandedLayoutProvider, using authLayoutBrandedConfig as the default layout
+// Initial layout properties for the DefaultAuthLayoutProvider, using DefaultAuthLayoutConfig as the default layout
 const initalLayoutProps: AuthLayoutProviderProps = {
-  layout: authLayoutBrandedConfig
+  layout: DefaultAuthLayoutConfig
 };
 
-// Creating a context for the AuthBrandedLayout with the initial layout properties
+// Creating a context for the DefaultAuthLayout with the initial layout properties
 const LayoutContext = createContext<AuthLayoutProviderProps>(initalLayoutProps);
 
-// Custom hook to access the AuthBrandedLayout context, allowing other components to use the layout data
-const useAuthBrandedLayout = () => useContext(LayoutContext);
+// Custom hook to access the DefaultAuthLayout context, allowing other components to use the layout data
+const useDefaultAuthLayout = () => useContext(LayoutContext);
 
-// AuthBrandedLayoutProvider component that wraps its children with the layout context
-const AuthBrandedLayoutProvider = ({ children }: PropsWithChildren) => {
+// DefaultAuthLayoutProvider component that wraps its children with the layout context
+const DefaultAuthLayoutProvider = ({ children }: PropsWithChildren) => {
   const { getLayout, setCurrentLayout } = useLayout(); // Access layout-related functions
 
   // Function to merge the current layout with the branded auth layout configuration
   const getLayoutConfig = () => {
-    return deepMerge(authLayoutBrandedConfig, getLayout(authLayoutBrandedConfig.name));
+    return deepMerge(DefaultAuthLayoutConfig, getLayout(DefaultAuthLayoutConfig.name));
   };
 
   // Setting the layout state with the merged layout configuration
@@ -36,7 +36,7 @@ const AuthBrandedLayoutProvider = ({ children }: PropsWithChildren) => {
     setCurrentLayout(layout);
   }, []);
 
-  // Providing the layout context to all child components wrapped by AuthBrandedLayoutProvider
+  // Providing the layout context to all child components wrapped by DefaultAuthLayoutProvider
   return (
     <LayoutContext.Provider
       value={{
@@ -49,4 +49,4 @@ const AuthBrandedLayoutProvider = ({ children }: PropsWithChildren) => {
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export { AuthBrandedLayoutProvider, useAuthBrandedLayout };
+export { DefaultAuthLayoutProvider, useDefaultAuthLayout };

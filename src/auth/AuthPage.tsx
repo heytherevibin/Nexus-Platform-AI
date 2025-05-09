@@ -9,13 +9,12 @@ import {
   Signup,
   TwoFactorAuth
 } from './pages/jwt';
-import { AuthBrandedLayout } from '@/layouts/auth-branded';
-import { AuthLayout } from '@/layouts/auth';
+import { DefaultAuthLayout } from '@/layouts/auth';
 import { CheckEmail } from '@/auth/pages/jwt';
 
 const AuthPage = () => (
   <Routes>
-    <Route element={<AuthBrandedLayout />}>
+    <Route element={<DefaultAuthLayout />}>
       <Route index element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
@@ -29,7 +28,7 @@ const AuthPage = () => (
       <Route path="*" element={<Navigate to="/error/404" />} />
     </Route>
 
-    <Route element={<AuthLayout />}>
+    <Route element={<DefaultAuthLayout />}>
       <Route path="/classic/login" element={<Login />} />
       <Route path="/classic/signup" element={<Signup />} />
       <Route path="/classic/2fa" element={<TwoFactorAuth />} />
