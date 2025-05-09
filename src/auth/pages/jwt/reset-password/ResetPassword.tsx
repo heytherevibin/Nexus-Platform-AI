@@ -37,7 +37,7 @@ const ResetPassword = () => {
       setHasErrors(undefined);
       try {
         if (!requestPasswordResetLink) {
-          throw new Error('JWTProvider is required for this form.');
+          throw new Error('SupabaseAuthProvider is required for this form.');
         }
         await requestPasswordResetLink(values.email);
         setHasErrors(false);
@@ -51,12 +51,8 @@ const ResetPassword = () => {
               : '/auth/classic/reset-password/check-email',
           search: params.toString()
         });
-      } catch (error) {
-        if (error instanceof AxiosError && error.response) {
-          setStatus(error.response.data.message);
-        } else {
-          setStatus('Password reset failed. Please try again.');
-        }
+      } catch (error: any) {
+        setStatus(error?.message || 'Password reset failed. Please try again.');
         setHasErrors(true);
         setLoading(false);
         setSubmitting(false);

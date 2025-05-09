@@ -51,13 +51,12 @@ const Signup = () => {
       setLoading(true);
       try {
         if (!register) {
-          throw new Error('JWTProvider is required for this form.');
+          throw new Error('SupabaseAuthProvider is required for this form.');
         }
-        await register(values.email, values.password, values.changepassword);
+        await register(values.email, values.password);
         navigate(from, { replace: true });
-      } catch (error) {
-        console.error(error);
-        setStatus('The sign up details are incorrect');
+      } catch (error: any) {
+        setStatus(error?.message || 'The sign up details are incorrect');
         setSubmitting(false);
         setLoading(false);
       }

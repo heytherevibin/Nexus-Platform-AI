@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from './providers/JWTProvider';
+import { AuthContext } from './providers/SupabaseAuthProvider';
 
 export const useAuthContext = () => {
   const context = useContext(AuthContext);

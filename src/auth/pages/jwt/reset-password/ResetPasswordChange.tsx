@@ -36,31 +36,16 @@ const ResetPasswordChange = () => {
       setLoading(true);
       setHasErrors(undefined);
 
-      const token = new URLSearchParams(window.location.search).get('token');
-      const email = new URLSearchParams(window.location.search).get('email');
-
-      if (!token || !email) {
-        setHasErrors(true);
-        setStatus('Token and email properties are required');
-        setLoading(false);
-        setSubmitting(false);
-        return;
-      }
-
       try {
-        await changePassword(email, token, values.newPassword, values.confirmPassword);
+        await changePassword(values.newPassword);
         setHasErrors(false);
         navigate(
           currentLayout?.name === 'auth-branded'
             ? '/auth/reset-password/changed'
             : '/auth/classic/reset-password/changed'
         );
-      } catch (error) {
-        if (error instanceof AxiosError && error.response) {
-          setStatus(error.response.data.message);
-        } else {
-          setStatus('Password reset failed. Please try again.');
-        }
+      } catch (error: any) {
+        setStatus(error?.message || 'Password reset failed. Please try again.');
         setHasErrors(true);
       } finally {
         setLoading(false);

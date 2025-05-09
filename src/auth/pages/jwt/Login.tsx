@@ -45,7 +45,7 @@ const Login = () => {
 
       try {
         if (!login) {
-          throw new Error('JWTProvider is required for this form.');
+          throw new Error('SupabaseAuthProvider is required for this form.');
         }
 
         await login(values.email, values.password);
@@ -57,8 +57,8 @@ const Login = () => {
         }
 
         navigate(from, { replace: true });
-      } catch {
-        setStatus('The login details are incorrect');
+      } catch (error: any) {
+        setStatus(error?.message || 'The login details are incorrect');
         setSubmitting(false);
       }
       setLoading(false);
