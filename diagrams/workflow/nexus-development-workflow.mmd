@@ -1,0 +1,92 @@
+flowchart TD
+    %% Development Phases
+    Start[Start] --> Setup
+    
+    %% Setup Phase
+    subgraph Setup["Setup Phase (Week 1-2)"]
+        ENV["Environment Setup"]
+        CORE["Core Services Architecture"]
+        GIT["Git Provider Connectors"]
+        
+        ENV --> CORE
+        CORE --> GIT
+    end
+    
+    %% Data Collection Phase
+    Setup --> DataCollection
+    subgraph DataCollection["Data Collection Phase (Week 3-5)"]
+        REPO["Repository Data Collection"]
+        EVENT["Event Processing Pipeline"]
+        STORAGE["Storage Layer"]
+        
+        REPO --> EVENT
+        EVENT --> STORAGE
+    end
+    
+    %% Intelligence Layer
+    DataCollection --> Intelligence
+    subgraph Intelligence["Intelligence Layer (Week 6-8)"]
+        KG["Knowledge Graph Construction"]
+        ANALYTICS["Analytics Engines"]
+        ML["ML Model Integration"]
+        
+        KG --> ANALYTICS
+        ANALYTICS --> ML
+    end
+    
+    %% API & Integration Phase
+    Intelligence --> Integration
+    subgraph Integration["API & Integration Phase (Week 9-10)"]
+        API["API Development"]
+        INTEG["Integration Services"]
+        
+        API --> INTEG
+    end
+    
+    %% Frontend Development
+    Intelligence --> Frontend
+    subgraph Frontend["Frontend Development (Week 8-12)"]
+        UI["UI Framework"]
+        DASH["Dashboard Implementation"]
+        UX["User Experience Refinement"]
+        
+        UI --> DASH
+        DASH --> UX
+    end
+    
+    %% Testing & Deployment
+    Integration --> TestDeploy
+    Frontend --> TestDeploy
+    subgraph TestDeploy["Testing & Deployment (Continuous)"]
+        TEST["Testing Strategy"]
+        DEPLOY["Deployment Pipeline"]
+        
+        TEST --> DEPLOY
+    end
+    
+    %% Documentation & Launch
+    TestDeploy --> Launch
+    subgraph Launch["Documentation & Launch (Final 2 Weeks)"]
+        DOC["Documentation"]
+        PREP["Launch Preparation"]
+        
+        DOC --> PREP
+    end
+    
+    Launch --> Release[Release MVP]
+    
+    %% Continuous Processes
+    subgraph Continuous["Continuous Processes"]
+        CI["Continuous Integration"]
+        CD["Continuous Deployment"]
+        QA["Quality Assurance"]
+        FEED["Feedback Loop"]
+        
+        CI --> CD --> QA --> FEED --> CI
+    end
+    
+    Setup --> Continuous
+    DataCollection --> Continuous
+    Intelligence --> Continuous
+    Integration --> Continuous
+    Frontend --> Continuous

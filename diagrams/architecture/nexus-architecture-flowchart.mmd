@@ -1,0 +1,147 @@
+flowchart TD
+    %% Client layer
+    subgraph Client["Client Layer"]
+        UI["Frontend Application"]
+        SDK["SDK/API Clients"]
+        CLI["CLI Tools"]
+    end
+
+    %% API Gateway layer
+    subgraph Gateway["API Gateway Layer"]
+        API["API Gateway Service"]
+        Auth["Authentication & Authorization"]
+        Rate["Rate Limiting"]
+        Proxy["Service Proxying"]
+    end
+
+    %% Core Services
+    subgraph Core["Core Services"]
+        %% Data Collection
+        subgraph DC["Data Collection Service"]
+            GC["Git Connectors"]
+            CP["Code Parsers"]
+            PP["Pipeline Processors"]
+            EH["Event Handlers"]
+        end
+
+        %% Knowledge Graph
+        subgraph KG["Knowledge Graph Service"]
+            GM["Graph Models"]
+            GP["Graph Processors"]
+            GQ["Graph Queries"]
+            GA["Graph Algorithms"]
+        end
+
+        %% Analytics
+        subgraph AS["Analytics Service"]
+            ML["ML Models"]
+            FE["Feature Engineering"]
+            IM["Inference Modules"]
+            AM["Analytics Metrics"]
+        end
+
+        %% Notification
+        subgraph NS["Notification Service"]
+            NC["Notification Channels"]
+            NP["Notification Processors"]
+            NT["Notification Templates"]
+            SM["Subscription Management"]
+        end
+    end
+
+    %% Enterprise Features
+    subgraph Enterprise["Enterprise Features"]
+        TS["Tenant Management Service"]
+        AUD["Audit Service"]
+        CS["Configuration Service"]
+    end
+
+    %% Integrations
+    subgraph Integrations["Integration Layer"]
+        IF["Integration Framework"]
+        AD_Adapters["Adapters"]
+        TF["Transformers"]
+        CN["Connectors"]
+    end
+
+    %% Infrastructure
+    subgraph Infra["Infrastructure Layer"]
+        %% Data Storage
+        subgraph DS["Data Storage"]
+            PG["PostgreSQL"]
+            NG["Neo4j"]
+            RD["Redis Cache"]
+        end
+
+        %% Messaging
+        subgraph MS["Messaging"]
+            KF["Kafka"]
+            RQ["Message Queues"]
+        end
+
+        %% Monitoring
+        subgraph MON["Monitoring"]
+            TM["Telemetry Service"]
+            LG["Logging"]
+            MET["Metrics"]
+            TR["Tracing"]
+        end
+    end
+
+    %% External Systems
+    subgraph External["External Systems"]
+        GH["GitHub"]
+        GL["GitLab"]
+        BB["Bitbucket"]
+        AD_DevOps["Azure DevOps"]
+        CI["CI/CD Systems"]
+    end
+
+    %% Connections
+    %% Client to Gateway
+    UI --> API
+    SDK --> API
+    CLI --> API
+
+    %% Gateway to Core Services
+    API --> DC
+    API --> KG
+    API --> AS
+    API --> NS
+
+    %% Core Services Interactions
+    DC -- "Data Events" --> KF
+    KF --> KG
+    KG --> AS
+    AS --> NS
+
+    %% Core to Infrastructure
+    DC --> PG
+    DC --> NG
+    KG --> NG
+    AS --> PG
+    AS --> RD
+    NS --> RD
+
+    %% External Integrations
+    DC --> GH
+    DC --> GL
+    DC --> BB
+    DC --> AD_DevOps
+    DC --> CI
+
+    %% Enterprise Features
+    TS --> DC
+    TS --> KG
+    TS --> AS
+    AUD --> CS
+
+    %% Monitoring
+    TM -.-> DC
+    TM -.-> KG
+    TM -.-> AS
+    TM -.-> NS
+
+    %% Integrations
+    IF --> CD
+    IF --> CI

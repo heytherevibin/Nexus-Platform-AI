@@ -1,0 +1,49 @@
+sequenceDiagram
+    %% Define participants based on the architecture flowchart
+    participant Client as Frontend/SDK/CLI
+    participant Gateway as API Gateway Layer
+    participant DC as Data Collection Service
+    participant KG as Knowledge Graph Service
+    participant AS as Analytics Service
+    participant NS as Notification Service
+    participant MQ as Kafka/Message Queues
+    participant DB as Data Storage (PostgreSQL/Neo4j)
+    participant EXT as External Systems
+
+    %% Main sequence flow
+    Client->>Gateway: API Request
+    Gateway->>Gateway: Authentication & Authorization
+    Gateway->>Gateway: Rate Limiting
+    
+    %% Data Collection Flow
+    Gateway->>DC: Request Data Collection
+    DC->>EXT: Fetch Data (GitHub/GitLab/etc.)
+    EXT-->>DC: Return Raw Data
+    DC->>DC: Process with Parsers
+    DC->>MQ: Publish Data Events
+    DC->>DB: Store Raw Data
+
+    %% Knowledge Graph Processing
+    MQ->>KG: Consume Data Events
+    KG->>KG: Process Graph Models
+    KG->>DB: Store Graph Data
+    
+    %% Analytics Processing
+    KG->>AS: Request Analytics
+    AS->>AS: Run ML Models/Inference
+    AS->>DB: Store Analytics Results
+    
+    %% Notification Flow
+    AS->>NS: Trigger Notifications
+    NS->>NS: Process Notification Templates
+    NS-->>Client: Send Notifications
+    
+    %% Complete Response
+    AS-->>Gateway: Return Analytics Results
+    Gateway-->>Client: API Response
+    
+    %% Core Processing Areas
+    Note over DC: Core Data Processing Pipeline
+    Note over KG: Graph Processing
+    Note over AS: Analytics Processing
+    Note over MQ: Event Distribution

@@ -1,0 +1,144 @@
+flowchart TB
+    %% Title
+    title["Integration & Infrastructure Architecture"]
+    
+    %% Main Application Layer
+    subgraph APP["Application Services"]
+        direction TB
+        API["API Gateway"]
+        Core["Core Services"]
+    end
+    
+    %% Integration Layer with Details
+    subgraph Integrations["Integration Layer"]
+        direction TB
+        IF["Integration Framework"]
+        
+        subgraph Adapters["Adapters"]
+            SCM_Adapter["Source Control Adapters"]
+            CI_Adapter["CI/CD Adapters"]
+            ITS_Adapter["Issue Tracking Adapters"]
+            COMM_Adapter["Communication Adapters"]
+        end
+        
+        subgraph TF["Transformers"]
+            DT["Data Transformers"]
+            ET["Event Transformers"]
+            MT["Message Transformers"]
+        end
+        
+        subgraph CN["Connectors"]
+            API_Conn["API Connectors"]
+            Webhook_Conn["Webhook Handlers"]
+            Stream_Conn["Stream Processors"]
+        end
+        
+        IF --> Adapters
+        IF --> TF
+        IF --> CN
+    end
+    
+    %% Infrastructure Layer with Details
+    subgraph Infra["Infrastructure Layer"]
+        %% Data Storage
+        subgraph DS["Data Storage"]
+            subgraph PG["PostgreSQL"]
+                UserDB["User Database"]
+                MetricsDB["Metrics Database"]
+                ConfigDB["Configuration Database"]
+            end
+            
+            subgraph NG["Neo4j"]
+                KnowledgeGraphDB["Knowledge Graph"]
+                RelationshipsDB["Relationship Database"]
+            end
+            
+            subgraph RD["Redis Cache"]
+                SessionCache["Session Cache"]
+                QueryCache["Query Results Cache"]
+                MetadataCache["Metadata Cache"]
+            end
+        end
+        
+        %% Messaging System
+        subgraph MS["Messaging System"]
+            subgraph KF["Kafka"]
+                Topics["Topic Management"]
+                Streams["Stream Processing"]
+                ConnectAPI["Connect API"]
+            end
+            
+            subgraph RQ["Message Queues"]
+                TaskQueue["Task Queue"]
+                NotificationQueue["Notification Queue"]
+                AnalyticsQueue["Analytics Processing Queue"]
+            end
+        end
+        
+        %% Monitoring
+        subgraph MON["Monitoring"]
+            TM["Telemetry Service"]
+            
+            subgraph Logging["Logging System"]
+                LG["Log Aggregation"]
+                LA["Log Analysis"]
+            end
+            
+            subgraph Metrics["Metrics System"]
+                MET["Metrics Collection"]
+                Dashboard["Metrics Dashboard"]
+            end
+            
+            subgraph Tracing["Distributed Tracing"]
+                TR["Trace Collection"]
+                TA["Trace Analysis"]
+            end
+        end
+    end
+    
+    %% External Systems with Details
+    subgraph External["External Systems"]
+        subgraph SCM["Source Control Management"]
+            GH["GitHub"]
+            GL["GitLab"]
+            BB["Bitbucket"]
+            ADO["Azure DevOps"]
+        end
+        
+        subgraph CICD["CI/CD Systems"]
+            Jenkins["Jenkins"]
+            GHA["GitHub Actions"]
+            AzurePipelines["Azure Pipelines"]
+            CircleCI["CircleCI"]
+        end
+        
+        subgraph IssueTrackers["Issue Trackers"]
+            Jira["Jira"]
+            GHIssues["GitHub Issues"]
+            ADOWorkItems["ADO Work Items"]
+        end
+    end
+    
+    %% Connections
+    APP --> Integrations
+    APP --> Infra
+    
+    %% Integration to External connections
+    CN --> SCM
+    CN --> CICD
+    CN --> IssueTrackers
+    
+    %% Integration to Infrastructure connections
+    Adapters --> MS
+    TF --> MS
+    
+    %% Infrastructure internal connections
+    MS --> DS
+    MON --> MS
+    MON --> DS
+    
+    %% Data flow annotations
+    Integrations -- "Data Collection" --> DS
+    MS -- "Event Processing" --> APP
+    CN -- "External Data" --> TF
+    TF -- "Normalized Data" --> MS

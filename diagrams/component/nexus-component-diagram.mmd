@@ -1,0 +1,89 @@
+flowchart TD
+    %% Top-level application
+    subgraph PIA["Platform Intelligence Agent"]
+        subgraph FE["Frontend Layer"]
+            Dashboard["Dashboard UI"]
+            Reports["Reports & Visualizations"]
+            Settings["Settings & Configuration"]
+            Search["Search Interface"]
+        end
+        
+        subgraph BE["Backend Core"]
+            subgraph DC["Data Collection"]
+                Connectors["Git Provider Connectors"]
+                Extractors["Data Extractors"]
+                Parsers["Code Parsers"]
+                EventHandlers["Event Handlers"]
+            end
+            
+            subgraph KGS["Knowledge Graph System"]
+                GraphDB["Graph Database"]
+                GraphProcessors["Graph Processors"]
+                GraphQueries["Graph Queries"]
+                GraphAlgorithms["Graph Algorithms"]
+            end
+            
+            subgraph AS["Analytics System"]
+                BasicMetrics["Basic Metrics"]
+                AdvancedAnalytics["Advanced Analytics"]
+                MLModels["ML Models"]
+                PredictiveSystem["Predictive System"]
+            end
+            
+            subgraph NS["Notification System"]
+                AlertEngine["Alert Engine"]
+                DeliverySystem["Delivery System"]
+                SubscriptionMgr["Subscription Manager"]
+            end
+        end
+        
+        subgraph INFRA["Infrastructure"]
+            API["API Gateway"]
+            MessageBus["Message Bus"]
+            DataStore["Data Stores"]
+            Cache["Caching Layer"]
+            Auth["Authentication"]
+            Telemetry["Telemetry"]
+        end
+    end
+    
+    %% External systems
+    Git["Git Providers"]
+    CICD["CI/CD Systems"]
+    Tools["Developer Tools"]
+    
+    %% Connections
+    Dashboard --> API
+    Reports --> API
+    Settings --> API
+    Search --> API
+    
+    API --> DC
+    API --> KGS
+    API --> AS
+    API --> NS
+    
+    DC --> MessageBus
+    MessageBus --> KGS
+    KGS --> AS
+    AS --> NS
+    
+    DC --> DataStore
+    KGS --> DataStore
+    AS --> DataStore
+    NS --> DataStore
+    
+    KGS --> Cache
+    AS --> Cache
+    API --> Cache
+    
+    DC --> Git
+    DC --> CICD
+    NS --> Tools
+    
+    %% Infrastructure connections
+    Auth -.-> API
+    Telemetry -.-> DC
+    Telemetry -.-> KGS
+    Telemetry -.-> AS
+    Telemetry -.-> NS

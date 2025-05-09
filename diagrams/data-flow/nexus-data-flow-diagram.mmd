@@ -1,0 +1,69 @@
+flowchart LR
+    classDef process fill:#d1e7dd,stroke:#198754,stroke-width:2px
+    classDef storage fill:#cfe2ff,stroke:#0d6efd,stroke-width:2px
+    classDef external fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+    classDef input fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    classDef output fill:#e2e3e5,stroke:#6c757d,stroke-width:2px
+
+    %% External Data Sources
+    GH[GitHub]:::external
+    GL[GitLab]:::external
+    BB[Bitbucket]:::external
+    CI[CI/CD Systems]:::external
+    
+    %% Data Collection
+    DC[Data Collection Service]:::process
+    
+    %% Event Processing
+    EP[Event Processor]:::process
+    
+    %% Storage Systems
+    RDB[(Relational DB)]:::storage
+    GDB[(Graph DB)]:::storage
+    CACHE[(Cache)]:::storage
+    
+    %% Processing Services
+    KGP[Knowledge Graph Processor]:::process
+    AP[Analytics Processor]:::process
+    MP[ML Processor]:::process
+    
+    %% Output Systems
+    API[API Service]:::output
+    DASH[Dashboards]:::output
+    NOTIF[Notifications]:::output
+    
+    %% User Input
+    USER[User Queries/Filters]:::input
+    CONFIG[Configuration]:::input
+    
+    %% Data Flow Connections
+    GH -->|Repository Data| DC
+    GL -->|Repository Data| DC
+    BB -->|Repository Data| DC
+    CI -->|Build/Deploy Data| DC
+    
+    DC -->|Raw Data| EP
+    EP -->|Processed Events| RDB
+    EP -->|Graph Entities| GDB
+    
+    RDB -->|Structured Data| KGP
+    RDB -->|Metrics Data| AP
+    GDB -->|Graph Data| KGP
+    
+    KGP -->|Dependency Data| GDB
+    KGP -->|Impact Analysis| CACHE
+    
+    GDB -->|Training Data| MP
+    RDB -->|Historical Data| MP
+    MP -->|Predictions| RDB
+    
+    USER -->|Queries| API
+    CONFIG -->|Settings| AP
+    
+    API -->|Query Results| DASH
+    AP -->|Analytics Results| DASH
+    AP -->|Alerts| NOTIF
+    
+    CACHE -->|Quick Access Data| API
+    RDB -->|Detail Data| API
+    GDB -->|Relationship Data| API

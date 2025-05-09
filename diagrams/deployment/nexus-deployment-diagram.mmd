@@ -1,0 +1,117 @@
+flowchart TD
+    classDef container fill:#e6f7ff,stroke:#1890ff,stroke-width:2px
+    classDef infra fill:#fff7e6,stroke:#fa8c16,stroke-width:2px
+    classDef external fill:#f6ffed,stroke:#52c41a,stroke-width:1px
+    
+    %% Cloud Environment
+    subgraph CLOUD["Cloud Environment (AWS/Azure/GCP)"]
+        %% Container Orchestration
+        subgraph KUBE["Kubernetes Cluster"]
+            %% Frontend
+            subgraph FE["Frontend"]
+                UI["UI Containers"]:::container
+            end
+            
+            %% Backend Services
+            subgraph BE["Backend Services"]
+                API["API Gateway"]:::container
+                DC["Data Collection Service"]:::container
+                KG["Knowledge Graph Service"]:::container
+                AN["Analytics Service"]:::container
+                NT["Notification Service"]:::container
+                CONF["Config Service"]:::container
+            end
+            
+            %% Stateful Services
+            subgraph DB["Databases"]
+                PSQL["PostgreSQL"]:::container
+                NEO4J["Neo4j"]:::container
+                REDIS["Redis"]:::container
+            end
+            
+            %% Messaging
+            subgraph MQ["Messaging"]
+                KF["Kafka"]:::container
+            end
+            
+            %% Monitoring
+            subgraph MON["Monitoring"]
+                PROM["Prometheus"]:::container
+                GRAF["Grafana"]:::container
+                ELK["ELK Stack"]:::container
+            end
+        end
+        
+        %% Cloud Services
+        subgraph CS["Cloud Services"]
+            S3["Object Storage"]:::infra
+            SQS["Message Queue"]:::infra
+            RDS["Managed Database"]:::infra
+            LAMBDA["Serverless Functions"]:::infra
+            CDN["Content Delivery"]:::infra
+        end
+    end
+    
+    %% External Systems
+    subgraph EXT["External Systems"]
+        GH["GitHub"]:::external
+        GL["GitLab"]:::external
+        BB["Bitbucket"]:::external
+        CICD["CI/CD Systems"]:::external
+        SLACK["Slack"]:::external
+        EMAIL["Email"]:::external
+    end
+    
+    %% Client
+    subgraph CLIENT["Client"]
+        BROWSER["Web Browser"]
+        MOBILE["Mobile App"]
+        CLI["CLI"]
+    end
+    
+    %% Connections
+    BROWSER --> CDN
+    MOBILE --> API
+    CLI --> API
+    
+    CDN --> UI
+    UI --> API
+    
+    API --> DC
+    API --> KG
+    API --> AN
+    API --> NT
+    API --> CONF
+    
+    DC --> KF
+    KF --> KG
+    KF --> AN
+    
+    DC --> PSQL
+    KG --> NEO4J
+    AN --> PSQL
+    AN --> NEO4J
+    NT --> REDIS
+    
+    DC --> GH
+    DC --> GL
+    DC --> BB
+    DC --> CICD
+    
+    NT --> SLACK
+    NT --> EMAIL
+    
+    LAMBDA --> S3
+    LAMBDA --> SQS
+    
+    %% Monitoring connections
+    PROM -.-> DC
+    PROM -.-> KG
+    PROM -.-> AN
+    PROM -.-> NT
+    PROM -.-> PSQL
+    PROM -.-> NEO4J
+    PROM -.-> KF
+    
+    GRAF -.-> PROM
+    ELK -.-> KUBE

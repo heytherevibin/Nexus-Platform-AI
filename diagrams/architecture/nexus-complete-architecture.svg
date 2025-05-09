@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <!-- Background -->
+  <rect width="800" height="800" fill="#f8fafc" />
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#1A365D">Platform Intelligence Agent - Complete Architecture</text>
+  
+  <!-- Data Sources Layer -->
+  <rect x="100" y="80" width="600" height="80" fill="#E6FFFA" rx="5" ry="5" stroke="#2C7A7B" stroke-width="2" />
+  <text x="400" y="105" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A365D">Data Sources</text>
+  
+  <!-- Data Source Icons -->
+  <rect x="130" y="120" width="80" height="30" fill="#B2F5EA" rx="5" ry="5" stroke="#2C7A7B" stroke-width="1" />
+  <text x="170" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">GitHub</text>
+  
+  <rect x="230" y="120" width="80" height="30" fill="#B2F5EA" rx="5" ry="5" stroke="#2C7A7B" stroke-width="1" />
+  <text x="270" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">GitLab</text>
+  
+  <rect x="330" y="120" width="80" height="30" fill="#B2F5EA" rx="5" ry="5" stroke="#2C7A7B" stroke-width="1" />
+  <text x="370" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Bitbucket</text>
+  
+  <rect x="430" y="120" width="80" height="30" fill="#B2F5EA" rx="5" ry="5" stroke="#2C7A7B" stroke-width="1" />
+  <text x="470" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Azure DevOps</text>
+  
+  <rect x="530" y="120" width="80" height="30" fill="#B2F5EA" rx="5" ry="5" stroke="#2C7A7B" stroke-width="1" />
+  <text x="570" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">CI/CD Systems</text>
+  
+  <!-- Connection Lines -->
+  <line x1="170" y1="150" x2="170" y2="180" stroke="#2C7A7B" stroke-width="2" />
+  <line x1="270" y1="150" x2="270" y2="180" stroke="#2C7A7B" stroke-width="2" />
+  <line x1="370" y1="150" x2="370" y2="180" stroke="#2C7A7B" stroke-width="2" />
+  <line x1="470" y1="150" x2="470" y2="180" stroke="#2C7A7B" stroke-width="2" />
+  <line x1="570" y1="150" x2="570" y2="180" stroke="#2C7A7B" stroke-width="2" />
+  
+  <!-- Data Collection Layer -->
+  <rect x="100" y="180" width="600" height="80" fill="#EBF8FF" rx="5" ry="5" stroke="#3182CE" stroke-width="2" />
+  <text x="400" y="205" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A365D">Data Collection Layer</text>
+  
+  <rect x="150" y="220" width="120" height="30" fill="#BEE3F8" rx="5" ry="5" stroke="#3182CE" stroke-width="1" />
+  <text x="210" y="240" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Git Connectors</text>
+  
+  <rect x="290" y="220" width="120" height="30" fill="#BEE3F8" rx="5" ry="5" stroke="#3182CE" stroke-width="1" />
+  <text x="350" y="240" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">CI/CD Connectors</text>
+  
+  <rect x="430" y="220" width="120" height="30" fill="#BEE3F8" rx="5" ry="5" stroke="#3182CE" stroke-width="1" />
+  <text x="490" y="240" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Event Processors</text>
+  
+  <!-- Connection Lines -->
+  <line x1="290" y1="260" x2="290" y2="280" stroke="#3182CE" stroke-width="2" />
+  <line x1="350" y1="260" x2="350" y2="280" stroke="#3182CE" stroke-width="2" />
+  <line x1="410" y1="260" x2="410" y2="280" stroke="#3182CE" stroke-width="2" />
+  
+  <!-- Data Processing Layer -->
+  <rect x="100" y="280" width="600" height="80" fill="#F0FFF4" rx="5" ry="5" stroke="#38A169" stroke-width="2" />
+  <text x="400" y="305" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A365D">Data Processing Layer</text>
+  
+  <rect x="130" y="320" width="100" height="30" fill="#C6F6D5" rx="5" ry="5" stroke="#38A169" stroke-width="1" />
+  <text x="180" y="340" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">ETL Pipeline</text>
+  
+  <rect x="250" y="320" width="100" height="30" fill="#C6F6D5" rx="5" ry="5" stroke="#38A169" stroke-width="1" />
+  <text x="300" y="340" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Data Warehouse</text>
+  
+  <rect x="370" y="320" width="100" height="30" fill="#C6F6D5" rx="5" ry="5" stroke="#38A169" stroke-width="1" />
+  <text x="420" y="340" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Knowledge Graph</text>
+  
+  <rect x="490" y="320" width="100" height="30" fill="#C6F6D5" rx="5" ry="5" stroke="#38A169" stroke-width="1" />
+  <text x="540" y="340" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Event Stream</text>
+  
+  <!-- Connection Lines -->
+  <line x1="180" y1="360" x2="180" y2="380" stroke="#38A169" stroke-width="2" />
+  <line x1="300" y1="360" x2="300" y2="380" stroke="#38A169" stroke-width="2" />
+  <line x1="420" y1="360" x2="420" y2="380" stroke="#38A169" stroke-width="2" />
+  <line x1="540" y1="360" x2="540" y2="380" stroke="#38A169" stroke-width="2" />
+  
+  <!-- Intelligence Layer -->
+  <rect x="100" y="380" width="600" height="80" fill="#FEFCBF" rx="5" ry="5" stroke="#D69E2E" stroke-width="2" />
+  <text x="400" y="405" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A365D">Intelligence Layer</text>
+  
+  <rect x="130" y="420" width="120" height="30" fill="#FAF089" rx="5" ry="5" stroke="#D69E2E" stroke-width="1" />
+  <text x="190" y="440" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Analytics Engines</text>
+  
+  <rect x="270" y="420" width="120" height="30" fill="#FAF089" rx="5" ry="5" stroke="#D69E2E" stroke-width="1" />
+  <text x="330" y="440" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">ML Models</text>
+  
+  <rect x="410" y="420" width="120" height="30" fill="#FAF089" rx="5" ry="5" stroke="#D69E2E" stroke-width="1" />
+  <text x="470" y="440" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Risk Assessment</text>
+  
+  <rect x="550" y="420" width="120" height="30" fill="#FAF089" rx="5" ry="5" stroke="#D69E2E" stroke-width="1" />
+  <text x="610" y="440" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Recommendation</text>
+  
+  <!-- Connection Lines -->
+  <line x1="190" y1="460" x2="190" y2="480" stroke="#D69E2E" stroke-width="2" />
+  <line x1="330" y1="460" x2="330" y2="480" stroke="#D69E2E" stroke-width="2" />
+  <line x1="470" y1="460" x2="470" y2="480" stroke="#D69E2E" stroke-width="2" />
+  <line x1="610" y1="460" x2="610" y2="480" stroke="#D69E2E" stroke-width="2" />
+  
+  <!-- API Layer -->
+  <rect x="100" y="480" width="600" height="80" fill="#FED7E2" rx="5" ry="5" stroke="#D53F8C" stroke-width="2" />
+  <text x="400" y="505" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A365D">API Layer</text>
+  
+  <rect x="150" y="520" width="120" height="30" fill="#FBB6CE" rx="5" ry="5" stroke="#D53F8C" stroke-width="1" />
+  <text x="210" y="540" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">REST API</text>
+  
+  <rect x="290" y="520" width="120" height="30" fill="#FBB6CE" rx="5" ry="5" stroke="#D53F8C" stroke-width="1" />
+  <text x="350" y="540" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">GraphQL API</text>
+  
+  <rect x="430" y="520" width="120" height="30" fill="#FBB6CE" rx="5" ry="5" stroke="#D53F8C" stroke-width="1" />
+  <text x="490" y="540" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Webhook API</text>
+  
+  <!-- Connection Lines -->
+  <line x1="210" y1="560" x2="210" y2="580" stroke="#D53F8C" stroke-width="2" />
+  <line x1="350" y1="560" x2="350" y2="580" stroke="#D53F8C" stroke-width="2" />
+  <line x1="490" y1="560" x2="490" y2="580" stroke="#D53F8C" stroke-width="2" />
+  
+  <!-- Interaction Layer -->
+  <rect x="100" y="580" width="600" height="80" fill="#E9D8FD" rx="5" ry="5" stroke="#805AD5" stroke-width="2" />
+  <text x="400" y="605" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A365D">Interaction Layer</text>
+  
+  <rect x="130" y="620" width="175" height="30" fill="#D6BCFA" rx="5" ry="5" stroke="#805AD5" stroke-width="1" />
+  <text x="217.5" y="640" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Developer Dashboard</text>
+  
+  <rect x="325" y="620" width="175" height="30" fill="#D6BCFA" rx="5" ry="5" stroke="#805AD5" stroke-width="1" />
+  <text x="412.5" y="640" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Operations Console</text>
+  
+  <rect x="520" y="620" width="175" height="30" fill="#D6BCFA" rx="5" ry="5" stroke="#805AD5" stroke-width="1" />
+  <text x="607.5" y="640" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Integrations</text>
+  
+  <!-- Enterprise Features -->
+  <rect x="100" y="680" width="600" height="80" fill="#E2E8F0" rx="5" ry="5" stroke="#4A5568" stroke-width="2" />
+  <text x="400" y="705" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A365D">Enterprise Features</text>
+  
+  <rect x="130" y="720" width="115" height="30" fill="#CBD5E0" rx="5" ry="5" stroke="#4A5568" stroke-width="1" />
+  <text x="187.5" y="740" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Multi-tenancy</text>
+  
+  <rect x="255" y="720" width="115" height="30" fill="#CBD5E0" rx="5" ry="5" stroke="#4A5568" stroke-width="1" />
+  <text x="312.5" y="740" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Compliance</text>
+  
+  <rect x="380" y="720" width="115" height="30" fill="#CBD5E0" rx="5" ry="5" stroke="#4A5568" stroke-width="1" />
+  <text x="437.5" y="740" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Audit Trail</text>
+  
+  <rect x="505" y="720" width="115" height="30" fill="#CBD5E0" rx="5" ry="5" stroke="#4A5568" stroke-width="1" />
+  <text x="562.5" y="740" font-family="Arial" font-size="12" text-anchor="middle" fill="#1A365D">Role-based Access</text>
+</svg>
