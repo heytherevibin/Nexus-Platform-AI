@@ -82,6 +82,15 @@ import {
   AuthenticationAccountDeactivatedPage,
   AuthenticationGetStartedPage
 } from '@/pages/authentication';
+import { RepositoriesPage } from '@/pages/core/repositories';
+import { ChangeAnalysisPage } from '@/pages/core/change-analysis';
+import { IncidentForecastingPage } from '@/pages/intelligence/incident-forecasting';
+import { RiskAssessmentPage } from '@/pages/intelligence/risk-assessment';
+import { MetricsPage } from '@/pages/intelligence/metrics';
+import { ObservabilityPage } from '@/pages/platform/observability';
+import { ConfigurationPage } from '@/pages/platform/configuration';
+import { AnalyticsPage } from '@/pages/platform/analytics';
+import { AlertsPage } from '@/pages/platform/alerts';
 
 const AppRoutingSetup = (): ReactElement => {
   return (
@@ -184,6 +193,15 @@ const AppRoutingSetup = (): ReactElement => {
             element={<AuthenticationAccountDeactivatedPage />}
           />
           <Route path="/authentication/get-started" element={<AuthenticationGetStartedPage />} />
+          <Route path="/repositories" element={<RepositoriesPage />} />
+          <Route path="/change-analysis" element={<ChangeAnalysisPage />} />
+          <Route path="/incident-forecasting" element={<IncidentForecastingPage />} />
+          <Route path="/risk-assessment" element={<RiskAssessmentPage />} />
+          <Route path="/metrics" element={<MetricsPage />} />
+          <Route path="/observability" element={<ObservabilityPage />} />
+          <Route path="/configuration" element={<ConfigurationPage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/alerts" element={<AlertsPage />} />
         </Route>
       </Route>
       <Route path="error/*" element={<ErrorsRouting />} />
