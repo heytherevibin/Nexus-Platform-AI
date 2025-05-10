@@ -1,230 +1,130 @@
-import { useEffect, useState } from 'react';
-import ApexChart from 'react-apexcharts';
-import { ApexOptions } from 'apexcharts';
-import { supabase } from '@/lib/supabaseClient';
+"use client"
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
+import * as React from "react"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
+import { Button } from "@/components/ui/button"
 
-const fetchEarningsChart = async () => {
-  const { data, error } = await supabase
-    .from('sales')
-    .select('amount'); // Adjust 'amount' to your actual column name
-  if (error) throw error;
-  // If data is an array of objects, extract the amount values
-  return Array.isArray(data) ? data.map(item => item.amount) : [];
-};
+// Generate chart data with randomness, trend, and weekly pattern
+function generateChartData(
+  days: number,
+  startDate: string,
+  baseUsers: number,
+  baseViews: number,
+  trend: number = 1.01
+): { date: string; activeUsers: number; pageViews: number }[] {
+  const data = [];
+  let users = baseUsers;
+  let views = baseViews;
+  for (let i = 0; i < days; i++) {
+    // Simulate weekly pattern: higher on weekends
+    const dayOfWeek = (i + new Date(startDate).getDay()) % 7;
+    const weekendBoost = dayOfWeek === 0 || dayOfWeek === 6 ? 1.15 : 1;
+    // Add randomness
+    const randomFactor = 0.9 + Math.random() * 0.2;
+    users = Math.round(users * trend * weekendBoost * randomFactor);
+    views = Math.round(views * trend * weekendBoost * randomFactor * 1.2);
+    const date = new Date(startDate);
+    date.setDate(date.getDate() + i);
+    data.push({
+      date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      activeUsers: users,
+      pageViews: views,
+    });
+    // Reset for next day
+    users = Math.max(50, users + Math.round((Math.random() - 0.5) * 10));
+    views = Math.max(80, views + Math.round((Math.random() - 0.5) * 20));
+  }
+  return data;
+}
 
-const EarningsChart = () => {
-  const [charData, setCharData] = useState<number[]>([]);
-  const categories: string[] = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
+const chartData3m = generateChartData(30, '2023-06-01', 120, 180, 1.01);
+const chartData30d = generateChartData(30, '2023-06-01', 100, 150, 1.005);
+const chartData7d = generateChartData(7, '2023-06-24', 200, 300, 0.99);
 
-  useEffect(() => {
-    fetchEarningsChart()
-      .then((data) => setCharData(Array.isArray(data) ? data : []))
-      .catch(() => setCharData([]));
-  }, []);
+export function EarningsChart() {
+  const [range, setRange] = React.useState("3m");
+  let chartData = chartData3m;
+  if (range === "30d") chartData = chartData30d;
+  if (range === "7d") chartData = chartData7d;
 
-  const options: ApexOptions = {
-    series: [
-      {
-        name: 'series1',
-        data: charData ?? []
-      }
-    ],
-    chart: {
-      height: 250,
-      type: 'area',
-      toolbar: {
-        show: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    legend: {
-      show: false
-    },
-    stroke: {
-      curve: 'smooth',
-      show: true,
-      width: 3,
-      colors: ['var(--tw-primary)']
-    },
-    xaxis: {
-      categories: categories,
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      },
-      labels: {
-        style: {
-          colors: 'var(--tw-gray-500)',
-          fontSize: '12px'
-        }
-      },
-      crosshairs: {
-        position: 'front',
-        stroke: {
-          color: 'var(--tw-primary)',
-          width: 1,
-          dashArray: 3
-        }
-      },
-      tooltip: {
-        enabled: false,
-        formatter: undefined,
-        offsetY: 0,
-        style: {
-          fontSize: '12px'
-        }
-      }
-    },
-    yaxis: {
-      min: 0,
-      max: 100,
-      tickAmount: 5,
-      axisTicks: {
-        show: false
-      },
-      labels: {
-        style: {
-          colors: 'var(--tw-gray-500)',
-          fontSize: '12px'
-        },
-        formatter: (defaultValue) => {
-          return `$${defaultValue}K`;
-        }
-      }
-    },
-    tooltip: {
-      enabled: true,
-      custom({ series, seriesIndex, dataPointIndex, w }) {
-        const number = parseInt(series[seriesIndex][dataPointIndex]) * 1000;
-        const month = w.globals.seriesX[seriesIndex][dataPointIndex];
-        const monthName = categories[month];
-
-        const formatter = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        });
-
-        const formattedNumber = formatter.format(number);
-
-        return `
-          <div class="flex flex-col gap-2 p-3.5">
-            <div class="font-medium text-2sm text-gray-600">${monthName}, 2024 Sales</div>
-            <div class="flex items-center gap-1.5">
-              <div class="font-semibold text-md text-gray-900">${formattedNumber}</div>
-              <span class="badge badge-outline badge-success badge-xs">+24%</span>
-            </div>
-          </div>
-          `;
-      }
-    },
-    markers: {
-      size: 0,
-      colors: 'var(--tw-primary-light)',
-      strokeColors: 'var(--tw-primary)',
-      strokeWidth: 4,
-      strokeOpacity: 1,
-      strokeDashArray: 0,
-      fillOpacity: 1,
-      discrete: [],
-      shape: 'circle',
-      offsetX: 0,
-      offsetY: 0,
-      onClick: undefined,
-      onDblClick: undefined,
-      showNullDataPoints: true,
-      hover: {
-        size: 8,
-        sizeOffset: 0
-      }
-    },
-    fill: {
-      gradient: {
-        opacityFrom: 0.25,
-        opacityTo: 0
-      }
-    },
-    grid: {
-      borderColor: 'var(--tw-gray-200)',
-      strokeDashArray: 5,
-      yaxis: {
-        lines: {
-          show: true
-        }
-      },
-      xaxis: {
-        lines: {
-          show: false
-        }
-      }
-    }
-  };
+  // Use static chart colors, but Card uses theme classes
+  const gridColor = "#222";
+  const axisColor = "#888";
+  const tooltipBg = "#181c20";
+  const tooltipText = "#fff";
 
   return (
-    <div className="card h-full">
-      <div className="card-header">
-        <h3 className="card-title">Earnings</h3>
-
-        <div className="flex items-center gap-5">
-          <label className="switch switch-sm">
-            <input name="check" type="checkbox" value="1" className="order-2" readOnly />
-            <span className="switch-label order-1">Referrals only</span>
-          </label>
-
-          <Select defaultValue="1">
-            <SelectTrigger className="w-28" size="sm">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent className="w-32">
-              <SelectItem value="1">1 month</SelectItem>
-              <SelectItem value="3">3 months</SelectItem>
-              <SelectItem value="6">6 months</SelectItem>
-              <SelectItem value="12">12 months</SelectItem>
-            </SelectContent>
-          </Select>
+    <Card className="bg-white dark:bg-[hsl(230,15%,7.84%)] text-accent-foreground">
+      <CardHeader className="pb-0">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <CardTitle>System Metrics</CardTitle>
+            <CardDescription>
+              {range === "3m" && "System metrics for the last 3 months"}
+              {range === "30d" && "System metrics for the last 30 days"}
+              {range === "7d" && "System metrics for the last 7 days"}
+            </CardDescription>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              variant={range === "3m" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setRange("3m")}
+            >
+              Last 3 months
+            </Button>
+            <Button
+              variant={range === "30d" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setRange("30d")}
+            >
+              Last 30 days
+            </Button>
+            <Button
+              variant={range === "7d" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setRange("7d")}
+            >
+              Last 7 days
+            </Button>
+          </div>
         </div>
-      </div>
-      <div className="card-body flex flex-col justify-end items-stretch grow px-3 py-1">
-        <ApexChart
-          id="earnings_chart"
-          options={options}
-          series={[
-            {
-              name: 'series1',
-              data: Array.isArray(charData) ? charData : []
-            }
-          ]}
-          type="area"
-          max-width="694"
-          height="250"
-        />
-      </div>
-    </div>
-  );
-};
+      </CardHeader>
+      <CardContent className="pt-4">
+        <div style={{ width: "100%", height: 260 }}>
+          <ResponsiveContainer>
+            <AreaChart data={chartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+              <defs>
+                <linearGradient id="colorActiveUsers" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#2563eb" stopOpacity={0.7}/>
+                  <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
+                </linearGradient>
+                <linearGradient id="colorPageViews" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.5}/>
+                  <stop offset="95%" stopColor="#22d3ee" stopOpacity={0}/>
+                </linearGradient>
+              </defs>
+              <XAxis dataKey="date" stroke={axisColor} tick={{ fill: axisColor, fontSize: 12 }} />
+              <YAxis stroke={gridColor} tick={{ fill: axisColor, fontSize: 12 }} axisLine={false} tickLine={false} />
+              <Tooltip 
+                contentStyle={{ background: tooltipBg, border: "none", color: tooltipText, borderRadius: 8, boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
+                labelStyle={{ color: tooltipText, fontWeight: 600 }}
+                itemStyle={{ color: tooltipText, fontSize: 13 }}
+                formatter={(value, name) => {
+                  if (name === 'activeUsers') return [value, 'Active Users'];
+                  if (name === 'pageViews') return [value, 'Page Views'];
+                  return [value, name];
+                }}
+              />
+              <Area type="monotone" dataKey="activeUsers" stroke="#2563eb" fill="url(#colorActiveUsers)" strokeWidth={2.5} dot={false} name="Active Users" />
+              <Area type="monotone" dataKey="pageViews" stroke="#22d3ee" fill="url(#colorPageViews)" strokeWidth={2.5} dot={false} name="Page Views" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
 
-export { EarningsChart };
+export default EarningsChart;

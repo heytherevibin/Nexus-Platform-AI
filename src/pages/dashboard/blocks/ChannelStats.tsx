@@ -13,16 +13,10 @@ interface IChannelStatsItems extends Array<IChannelStatsItem> {}
 
 const ChannelStats = () => {
   const items: IChannelStatsItems = [
-    { logo: 'linkedin-2.svg', info: '9.3k', desc: 'Amazing mates', path: '' },
-    { logo: 'youtube-2.svg', info: '24k', desc: 'Lessons Views', path: '' },
-    { logo: 'instagram-03.svg', info: '608', desc: 'New subscribers', path: '' },
-    {
-      logo: 'tiktok.svg',
-      logoDark: 'tiktok-dark.svg',
-      info: '2.5k',
-      desc: 'Stream audience',
-      path: ''
-    }
+    { logo: 'google-analytics.svg', info: 'Level 4', desc: 'System Level', path: '' },
+    { logo: 'jira.svg', info: 'Low', desc: 'Risk Level', path: '' },
+    { logo: 'general-electric.svg', info: '12', desc: 'Active Services', path: '' },
+    { logo: 'infography.svg', info: '1.2Gbps', desc: 'Network Traffic', path: '' }
   ];
 
   const renderItem = (item: IChannelStatsItem, index: number) => {
