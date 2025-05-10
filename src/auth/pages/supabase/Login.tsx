@@ -1,5 +1,6 @@
+import React from 'react';
 import { type MouseEvent, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -8,6 +9,7 @@ import { toAbsoluteUrl } from '@/utils';
 import { useAuthContext } from '@/auth';
 import { useLayout } from '@/providers';
 import { Alert } from '@/components';
+import { supabase } from '@/lib/supabaseClient';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -30,10 +32,11 @@ const initialValues = {
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const { login } = useAuthContext();
+  const { login, currentUser, loading: authLoading } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname;
+  const redirectTo = from && !from.startsWith('/auth') ? from : '/';
   const [showPassword, setShowPassword] = useState(false);
   const { currentLayout } = useLayout();
 
@@ -56,7 +59,7 @@ const Login = () => {
           localStorage.removeItem('email');
         }
 
-        navigate(from, { replace: true });
+        navigate(redirectTo, { replace: true });
       } catch (error: any) {
         setStatus(error?.message || 'The login details are incorrect');
         setSubmitting(false);
@@ -69,6 +72,14 @@ const Login = () => {
     event.preventDefault();
     setShowPassword(!showPassword);
   };
+
+  const handleGoogleSignIn = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    await supabase.auth.signInWithOAuth({ provider: 'google' });
+  };
+
+  if (authLoading) return null;
+  if (currentUser) return <Navigate to={redirectTo} replace />;
 
   return (
     <div className="card max-w-[390px] w-full">
@@ -91,7 +102,7 @@ const Login = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
-          <a href="#" className="btn btn-light btn-sm justify-center">
+          <a href="#" className="btn btn-light btn-sm justify-center" onClick={handleGoogleSignIn}>
             <img
               src={toAbsoluteUrl('/media/brand-logos/google.svg')}
               className="size-3.5 shrink-0"

@@ -1,13 +1,15 @@
 import clsx from 'clsx';
 import { useFormik } from 'formik';
-import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import React from 'react';
 
 import { useAuthContext } from '../../useAuthContext';
 import { toAbsoluteUrl } from '@/utils';
 import { Alert, KeenIcon } from '@/components';
 import { useLayout } from '@/providers';
+import { supabase } from '@/lib/supabaseClient';
 
 const initialValues = {
   email: '',
@@ -36,10 +38,11 @@ const signupSchema = Yup.object().shape({
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
-  const { register } = useAuthContext();
+  const { register, currentUser, loading: authLoading } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname;
+  const redirectTo = from && !from.startsWith('/auth') ? from : '/';
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { currentLayout } = useLayout();
@@ -54,7 +57,7 @@ const Signup = () => {
           throw new Error('SupabaseAuthProvider is required for this form.');
         }
         await register(values.email, values.password);
-        navigate(from, { replace: true });
+        navigate(redirectTo, { replace: true });
       } catch (error: any) {
         setStatus(error?.message || 'The sign up details are incorrect');
         setSubmitting(false);
@@ -72,6 +75,14 @@ const Signup = () => {
     event.preventDefault();
     setShowConfirmPassword(!showConfirmPassword);
   };
+
+  const handleGoogleSignIn = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    await supabase.auth.signInWithOAuth({ provider: 'google' });
+  };
+
+  if (authLoading) return null;
+  if (currentUser) return <Navigate to={redirectTo} replace />;
 
   return (
     <div className="card max-w-[370px] w-full">
@@ -94,7 +105,7 @@ const Signup = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
-          <a href="#" className="btn btn-light btn-sm justify-center">
+          <a href="#" className="btn btn-light btn-sm justify-center" onClick={handleGoogleSignIn}>
             <img
               src={toAbsoluteUrl('/media/brand-logos/google.svg')}
               className="size-3.5 shrink-0"
