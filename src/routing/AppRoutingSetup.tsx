@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
-import { DashboardPage, DashboardDarkPage } from '@/pages/dashboards';
+import { DashboardPage } from '@/pages/dashboard';
 import {
   ProfileActivityPage,
   ProfileBloggerPage,
@@ -89,7 +89,6 @@ const AppRoutingSetup = (): ReactElement => {
       <Route element={<RequireAuth />}>
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<DashboardPage />} />
-          <Route path="/dark-sidebar" element={<DashboardDarkPage />} />
           <Route path="/public-profile/profiles/default" element={<ProfileDefaultPage />} />
           <Route path="/public-profile/profiles/creator" element={<ProfileCreatorPage />} />
           <Route path="/public-profile/profiles/company" element={<ProfileCompanyPage />} />

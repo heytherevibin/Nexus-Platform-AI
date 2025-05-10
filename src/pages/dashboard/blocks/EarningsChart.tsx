@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
-import axios from 'axios';
+import { supabase } from '@/lib/supabaseClient';
 
 import {
   Select,
@@ -11,12 +11,17 @@ import {
   SelectValue
 } from '@/components/ui/select';
 
-const fetchEarningsChart = () => {
-  return axios.get<number[]>(`${import.meta.env.VITE_APP_API_URL}/sales/index`);
+const fetchEarningsChart = async () => {
+  const { data, error } = await supabase
+    .from('sales')
+    .select('amount'); // Adjust 'amount' to your actual column name
+  if (error) throw error;
+  // If data is an array of objects, extract the amount values
+  return Array.isArray(data) ? data.map(item => item.amount) : [];
 };
 
 const EarningsChart = () => {
-  const [charData, setCharData] = useState<number[]>();
+  const [charData, setCharData] = useState<number[]>([]);
   const categories: string[] = [
     'Jan',
     'Feb',
@@ -33,7 +38,9 @@ const EarningsChart = () => {
   ];
 
   useEffect(() => {
-    fetchEarningsChart().then((value) => setCharData(value.data));
+    fetchEarningsChart()
+      .then((data) => setCharData(Array.isArray(data) ? data : []))
+      .catch(() => setCharData([]));
   }, []);
 
   const options: ApexOptions = {
@@ -202,16 +209,19 @@ const EarningsChart = () => {
         </div>
       </div>
       <div className="card-body flex flex-col justify-end items-stretch grow px-3 py-1">
-        {charData && (
-          <ApexChart
-            id="earnings_chart"
-            options={options}
-            series={options.series}
-            type="area"
-            max-width="694"
-            height="250"
-          />
-        )}
+        <ApexChart
+          id="earnings_chart"
+          options={options}
+          series={[
+            {
+              name: 'series1',
+              data: Array.isArray(charData) ? charData : []
+            }
+          ]}
+          type="area"
+          max-width="694"
+          height="250"
+        />
       </div>
     </div>
   );
