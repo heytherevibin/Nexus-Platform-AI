@@ -4,26 +4,10 @@ import { ArrowRight, Github, GitBranch, GitMerge, TestTube } from 'lucide-react'
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { Tabs } from '@/components/tabs/Tabs';
-import { TabsList } from '@/components/tabs/TabsList';
-import { Tab } from '@/components/tabs/Tab';
-import { TabPanel } from '@/components/tabs/TabPanel';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 // TODO: Uncomment and use if AuthGuard and AppShell are available
 // import { AuthGuard } from '@/components/auth/AuthGuard';
@@ -55,9 +39,7 @@ const RepoConnector = () => {
               Connect your GitHub repositories to analyze code and manage workflows.
             </CardContent>
             <CardFooter>
-              <Button size="sm" className="w-full">
-                Connect GitHub
-              </Button>
+              <Button size="sm" className="w-full">Connect GitHub</Button>
             </CardFooter>
           </Card>
           
@@ -73,9 +55,7 @@ const RepoConnector = () => {
               Integrate with GitLab repositories for CI/CD and code management.
             </CardContent>
             <CardFooter>
-              <Button size="sm" variant="outline" className="w-full">
-                Connect GitLab
-              </Button>
+              <Button size="sm" variant="outline" className="w-full">Connect GitLab</Button>
             </CardFooter>
           </Card>
           
@@ -91,9 +71,7 @@ const RepoConnector = () => {
               Link your Bitbucket repositories for complete code integration.
             </CardContent>
             <CardFooter>
-              <Button size="sm" variant="outline" className="w-full">
-                Connect Bitbucket
-              </Button>
+              <Button size="sm" variant="outline" className="w-full">Connect Bitbucket</Button>
             </CardFooter>
           </Card>
         </div>
@@ -113,12 +91,11 @@ const APIIntegration = () => {
       <CardContent>
         <Tabs defaultValue="rest" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
-            <Tab value="rest">REST APIs</Tab>
-            <Tab value="graphql">GraphQL</Tab>
-            <Tab value="webhook">Webhooks</Tab>
+            <TabsTrigger value="rest">REST APIs</TabsTrigger>
+            <TabsTrigger value="graphql">GraphQL</TabsTrigger>
+            <TabsTrigger value="webhook">Webhooks</TabsTrigger>
           </TabsList>
-          
-          <TabPanel value="rest" className="mt-4 space-y-4">
+          <TabsContent value="rest" className="mt-4 space-y-4">
             <div className="flex space-x-2">
               <Input placeholder="API Endpoint URL" className="flex-1" />
               <Select defaultValue="get">
@@ -134,13 +111,12 @@ const APIIntegration = () => {
               </Select>
               <Button>Test</Button>
             </div>
-          </TabPanel>
-          
-          <TabPanel value="graphql" className="mt-4">
+          </TabsContent>
+          <TabsContent value="graphql" className="mt-4">
             <div className="flex flex-col space-y-4">
               <Input placeholder="GraphQL Endpoint" />
-              <textarea
-                className="min-h-[150px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+              <textarea 
+                className="min-h-[150px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm" 
                 placeholder="Enter your GraphQL query..."
                 defaultValue={`{
   repository(name: "example") {
@@ -151,24 +127,19 @@ const APIIntegration = () => {
               ></textarea>
               <Button>Execute Query</Button>
             </div>
-          </TabPanel>
-          
-          <TabPanel value="webhook" className="mt-4">
+          </TabsContent>
+          <TabsContent value="webhook" className="mt-4">
             <div className="space-y-4">
               <div className="flex space-x-2">
                 <Input placeholder="Webhook URL" className="flex-1" />
                 <Button>Register</Button>
               </div>
               <div className="rounded-md bg-muted p-4">
-                <p className="text-sm font-mono">
-                  https://nexus-platform.ai/api/webhooks/callback/12345
-                </p>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Use this URL as your webhook callback endpoint
-                </p>
+                <p className="text-sm font-mono">https://nexus-platform.ai/api/webhooks/callback/12345</p>
+                <p className="text-xs text-muted-foreground mt-2">Use this URL as your webhook callback endpoint</p>
               </div>
             </div>
-          </TabPanel>
+          </TabsContent>
         </Tabs>
       </CardContent>
     </Card>

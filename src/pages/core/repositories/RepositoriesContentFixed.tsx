@@ -55,9 +55,7 @@ const RepoConnector = () => {
               Connect your GitHub repositories to analyze code and manage workflows.
             </CardContent>
             <CardFooter>
-              <Button size="sm" className="w-full">
-                Connect GitHub
-              </Button>
+              <Button size="sm" className="w-full">Connect GitHub</Button>
             </CardFooter>
           </Card>
           
@@ -73,9 +71,7 @@ const RepoConnector = () => {
               Integrate with GitLab repositories for CI/CD and code management.
             </CardContent>
             <CardFooter>
-              <Button size="sm" variant="outline" className="w-full">
-                Connect GitLab
-              </Button>
+              <Button size="sm" variant="outline" className="w-full">Connect GitLab</Button>
             </CardFooter>
           </Card>
           
@@ -91,9 +87,7 @@ const RepoConnector = () => {
               Link your Bitbucket repositories for complete code integration.
             </CardContent>
             <CardFooter>
-              <Button size="sm" variant="outline" className="w-full">
-                Connect Bitbucket
-              </Button>
+              <Button size="sm" variant="outline" className="w-full">Connect Bitbucket</Button>
             </CardFooter>
           </Card>
         </div>
@@ -286,4 +280,4 @@ const RepositoriesContent = () => {
   );
 };
 
-export { RepositoriesContent };
+export default RepositoriesContent;
