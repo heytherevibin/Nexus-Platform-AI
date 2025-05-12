@@ -1,0 +1,44 @@
+// filepath: cspell.json
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "AuthGuard",
+    "AppShell",
+    "RepoConnector",
+    "Bitbucket",
+    "GitLab",
+    "lucide",
+    "radix-ui",
+    "clsx",
+    "cmdk",
+    "formik",
+    "notistack",
+    "recharts",
+    "sonner",
+    "supabase",
+    "tanstack",
+    "tailwindcss",
+    "vite",
+    "vitejs",
+    "windicss",
+    "yup",
+    // Add other project-specific terms, like "Nexus" if it's flagged
+    "Nexus",
+    "DropdownNotificationsItem10",
+    "DropdownNotificationsItem11",
+    "DropdownNotificationsItem12",
+    "DropdownNotificationsItem13",
+    "DropdownNotificationsItem3",
+    "DropdownNotificationsItem5"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "*.lock",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml"
+  ]
+}
